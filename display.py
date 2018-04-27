@@ -28,9 +28,11 @@ def new_zbuffer( width = XRES, height = YRES ):
     return zb
 
 def plot( screen, zbuffer, color, x, y, z ):
-    newy = YRES - 1 - y
-    if ( x >= 0 and x < XRES and newy >= 0 and newy < YRES):
-        screen[newy][x] = color[:]
+    newy = int(YRES - 1 - y)
+    x = int(x)
+    if ( x >= 0 and x < XRES and newy >= 0 and newy < YRES and z > zbuffer[int(newy)][int(x)] ):
+        zbuffer[int(newy)][int(x)] = z
+        screen[int(newy)][int(x)] = color[:]
 
 def clear_screen( screen ):
     for y in range( len(screen) ):
@@ -69,4 +71,3 @@ def display( screen ):
     p = Popen( ['display', ppm_name], stdin=PIPE, stdout = PIPE )
     p.communicate()
     remove(ppm_name)
-
