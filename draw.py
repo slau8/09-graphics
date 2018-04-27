@@ -1,3 +1,4 @@
+import random
 from display import *
 from matrix import *
 from math import *
